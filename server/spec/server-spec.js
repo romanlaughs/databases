@@ -40,7 +40,7 @@ describe('Persistent Node Chat Server', () => {
 
     axios.post(`${API_URL}/users`, { username })
       .then(() => {
-        console.log('AFTER .THEN');
+        console.log('AFTER .THEN***************************************************');
         // Post a message to the node chat server:
         return axios.post(`${API_URL}/messages`, { username, message, roomname });
       })

@@ -1,5 +1,14 @@
 var mysql = require('mysql2');
 
+
+module.exports = mysql.createConnection({
+  user: 'root',
+  password: '',
+  database: 'chat'
+});
+
+
+
 // Create a database connection and export it from this file.
 // Confirm that the credentials supplied for the connection are correct.
 // On Campus at pairing stations you'll use
