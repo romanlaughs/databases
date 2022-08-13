@@ -10,6 +10,8 @@ router.get('/users', controller.users.get);
 
 router.post('/users', controller.users.post);
 
+//'http://127.0.0.1:3000/classes/classes/messages'
+
 
 module.exports = router;
 

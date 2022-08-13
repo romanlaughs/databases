@@ -9,43 +9,22 @@ var Promise = require('bluebird');
 
 module.exports = {
   get: function (req, res) {
-    if ( req.method === 'GET') {
-      var iSwear = new Promise((resolve, reject) => {
-        models.messages.getAll((err, result) => {
-          if (err) {
-            reject('////////////////////////////////////////// reject error');
-          } else {
-            resolve(result);
-          }
-        });
-      });
-      iSwear.then(data => {
-        res.writeHead(200, corsHeaders);
-        res.end(JSON.stringify(models.messages.getAll(data)));
-      });
-    } else {
-      writeHead(404, corsHeaders);
-      res.end('not found /////////////////////////////////// 404');
-    }
+    models.messages.getAll((err, data) => {
+      if (err) {
+        res.status(400).send(err, 'error////////////////////////');
+      } else {
+        res.status(200).send(data);
+      }
+    });
   }, // a function which handles a get request for all messages
   post: function (req, res) {
-    let messageText = '';
-
-    if (req.method === 'POST') {
-      req.on('data', (chunk) => {
-        console.log(chunk, 'binary //////////////////');
-        result += chunk.toString();
-      }).on('end', () => {
-        response.writeHead(201, corsHeaders);
-        // do a sql thing here??
-        // let thing = 'INSERT into (table?)' + 'VALUES ' + result;
-        messageText.parse();
-        // res.end(models.create(messageText));
-        res.end('ended, but nothing happened yet');
-      });
-    } else {
-      writeHead(404, corsHeaders);
-      res.end('not found');
-    }
+    console.log(req.body);
+    models.messages.create(req.body, (err, data) => {
+      if (err) {
+        res.send(err, 'error////////////////////////');
+      } else {
+        res.status(201).send('success');
+      }
+    });
   } // a function which handles posting a message to the database
 };
