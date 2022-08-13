@@ -3,9 +3,6 @@ var db = require('../db');
 
 module.exports = {
   getAll: function (cb) {
-    //access database
-    // return
-
     db.connect(function( err) {
       if (err) {
         console.log(err, '/////////////////////////////////////');
@@ -13,7 +10,7 @@ module.exports = {
         //let request = new db.Request();
         db.query('SELECT * FROM messages', function(err, data) {
           if (err) {
-            console.log(err, '/////////////////////////////////');
+            cb(err, '/////////////////////////////////');
           } else {
             console.log('Messages successful connect', '/////////////////////');
             console.log(data);

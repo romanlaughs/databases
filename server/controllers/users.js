@@ -6,26 +6,37 @@ var corsHeaders = {
   'access-control-max-age': 10 // Seconds.
 };
 var Promise = require('bluebird');
+var db = require('../db');
 
 module.exports = {
   get: function (req, res) {
-    models.users.getAll((err, data) => {
-      if (err) {
-        res.status(400).send(err, ' controllers users error////////////////////////');
-      } else {
-        res.status(200).send(data);
-      }
-    });
+    db.User.findAll()
+      .complete(function(err, results) {
+        res.json(results);
+      });
+    // models.users.getAll((err, data) => {
+    //   if (err) {
+    //     res.status(400).send(err, ' controllers users error////////////////////////');
+    //   } else {
+    //     res.status(200).send(data);
+    //   }
+    // });
   },
   post: function (req, res) {
-    let userName = req.body;
-    console.log(req.body);
-    models.users.create(userName, (err, data) => {
-      if (err) {
-        res.status(400).send(err, 'error////////////////////////');
-      } else {
-        res.status(201).send('success');
-      }
-    });
+    db.User.Create({username: req.body[username]})
+      .complete(function(err, user) {
+        res.sendStatus(201);
+      });
+
+
+    // let userName = req.body;
+    // console.log(req.body);
+    // models.users.create(userName, (err, data) => {
+    //   if (err) {
+    //     res.status(400).send(err, 'error////////////////////////');
+    //   } else {
+    //     res.status(201).send('success');
+    //   }
+    // });
   }
 };
